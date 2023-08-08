@@ -1,15 +1,17 @@
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: podinfo
-  namespace: default
+  namespace: flux-system
 spec:
   interval: 5m0s
   path: ./kustomize
   prune: true
+  retryInterval: 2m0s
   sourceRef:
     kind: GitRepository
     name: podinfo
-  validation: client
-
+  targetNamespace: default
+  timeout: 3m0s
+  wait: true
